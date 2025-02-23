@@ -2,9 +2,9 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const port = 3002;
+const port = 3000;
 
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
     const serveFile = (filePath, contentType, responseCode = 200) => {
         fs.readFile(filePath, (err, content) => {
             if (err) {
@@ -49,6 +49,12 @@ http.createServer((req, res) => {
             }
         });
     }
-}).listen(port, () => {
+});
+
+server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
+});
+
+server.on('error', (err) => {
+    console.error('Server error:', err.message);
 });
